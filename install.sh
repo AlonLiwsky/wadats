@@ -1,19 +1,20 @@
 #!/bin/bash
 
-# Easy installation script for TimestampConverter
+# Easy installation script for Wadats
 # No Xcode required!
 
 set -e
 
 echo "╔══════════════════════════════════════════════════════════╗"
 echo "║                                                          ║"
-echo "║         TIMESTAMP CONVERTER - EASY INSTALLER            ║"
+echo "║            WADATS - EASY INSTALLER                      ║"
+echo "║            What's that timestamp?                        ║"
 echo "║                                                          ║"
 echo "╚══════════════════════════════════════════════════════════╝"
 echo ""
 
 # Check if app already exists
-if [ -d "DirectBuild/TimestampConverter.app" ]; then
+if [ -d "DirectBuild/Wadats.app" ]; then
     echo "✅ Pre-built app found!"
     echo ""
 else
@@ -33,7 +34,7 @@ else
     # Build the app
     ./build-direct.sh
 
-    if [ ! -d "DirectBuild/TimestampConverter.app" ]; then
+    if [ ! -d "DirectBuild/Wadats.app" ]; then
         echo "❌ Build failed"
         exit 1
     fi
@@ -44,18 +45,18 @@ fi
 echo "📥 Installing to /Applications..."
 echo ""
 
-if [ -d "/Applications/TimestampConverter.app" ]; then
-    echo "⚠️  TimestampConverter is already installed"
+if [ -d "/Applications/Wadats.app" ]; then
+    echo "⚠️  Wadats is already installed"
     read -p "   Replace it? (y/n) " -n 1 -r
     echo ""
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         echo "Installation cancelled"
         exit 0
     fi
-    rm -rf "/Applications/TimestampConverter.app"
+    rm -rf "/Applications/Wadats.app"
 fi
 
-cp -R DirectBuild/TimestampConverter.app /Applications/
+cp -R DirectBuild/Wadats.app /Applications/
 
 echo "✅ Installation complete!"
 echo ""
@@ -63,7 +64,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo ""
 echo "🚀 TO START USING:"
 echo ""
-echo "   1. Launch from Applications folder or Spotlight"
+echo "   1. Launch Wadats from Applications folder or Spotlight"
 echo "   2. Look for the clock icon (🕐) in your menu bar"
 echo "   3. Grant accessibility permissions when prompted"
 echo ""
@@ -75,13 +76,14 @@ echo "   1. Open any app (TextEdit, Safari, etc.)"
 echo "   2. Type: 1737025200"
 echo "   3. Select the text"
 echo "   4. Press ⌘⇧T (Command + Shift + T)"
+echo "   5. Use arrow keys to navigate, Enter to copy, Cmd+Enter to insert"
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "Opening the app now..."
 echo ""
 
-open /Applications/TimestampConverter.app
+open /Applications/Wadats.app
 
 sleep 2
 

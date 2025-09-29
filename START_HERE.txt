@@ -1,6 +1,7 @@
 ╔══════════════════════════════════════════════════════════════╗
 ║                                                              ║
-║             🕐 TIMESTAMP CONVERTER FOR MACOS 🕐             ║
+║                  🕐 WADATS FOR MACOS 🕐                     ║
+║                  What's that timestamp?                      ║
 ║                                                              ║
 ║                    All features complete!                    ║
 ║                   NO XCODE REQUIRED! ⭐                      ║
@@ -72,10 +73,10 @@ TimestampConverter/
 │   ├── GlobalHotKeyManager.swift   (keyboard shortcuts)
 │   └── ConversionResult.swift      (data models)
 ├── UI/                        # User interface
-│   ├── PopupWindow.swift           (main popup)
+│   ├── PopupWindow.swift           (Maccy-style popup)
 │   └── SettingsView.swift          (settings)
 ├── AppDelegate.swift          # Menu bar & lifecycle
-└── TimestampConverterApp.swift  # App entry point
+└── WadatsApp.swift            # App entry point
 
 Total: 1,022 lines of Swift code
 
@@ -117,7 +118,9 @@ For distribution:
 • The app lives in your menu bar (look for 🕐)
 • Works in ANY app (Safari, Terminal, VS Code, etc.)
 • Press ⌘⇧T after selecting any timestamp
-• Hover over results to see Copy/Insert buttons
+• Use arrow keys (↑↓) to navigate results
+• Press Enter to copy, Cmd+Enter to insert
+• Press ESC or click outside to close
 • Check Settings for more info
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -136,7 +139,7 @@ For distribution:
 We've created a pre-built package that users can download and use
 without any build tools:
 
-  TimestampConverter-v1.0-macOS.zip
+  Wadats-v1.0-macOS.zip
 
 Contains:
   • Pre-built app

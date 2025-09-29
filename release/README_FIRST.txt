@@ -1,6 +1,7 @@
 ╔══════════════════════════════════════════════════════════╗
 ║                                                          ║
-║         🕐  TIMESTAMP CONVERTER FOR MACOS  🕐           ║
+║              🕐  WADATS FOR MACOS  🕐                   ║
+║              What's that timestamp?                      ║
 ║                                                          ║
 ║                    Version 1.0                           ║
 ║                                                          ║
@@ -10,7 +11,7 @@ QUICK START:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 1. INSTALL
-   → Drag "TimestampConverter.app" to Applications folder
+   → Drag "Wadats.app" to Applications folder
 
 2. LAUNCH
    → Open from Applications or Spotlight
@@ -18,20 +19,25 @@ QUICK START:
 
 3. GRANT PERMISSIONS
    → Click "Open System Settings" when prompted
-   → Enable accessibility for TimestampConverter
+   → Enable accessibility for Wadats
 
 4. USE IT!
    → Select any timestamp
    → Press ⌘⇧T
-   → Copy or insert conversion
+   → Maccy-style popup appears at cursor
+   → Use arrow keys (↑↓) to navigate
+   → Press Enter to copy, Cmd+Enter to insert
+   → Press ESC or click outside to close
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 FEATURES:
   ✓ Global keyboard shortcut (⌘⇧T)
+  ✓ Maccy-style popup UI at cursor
   ✓ Smart format detection
   ✓ Works in any app
-  ✓ Copy or direct insert
+  ✓ Arrow key navigation
+  ✓ Copy (Enter) or direct insert (Cmd+Enter)
   ✓ Context menu integration
   ✓ Completely offline & private
 

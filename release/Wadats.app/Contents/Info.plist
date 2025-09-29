@@ -5,13 +5,13 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>TimestampConverter</string>
+	<string>Wadats</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.timestampconverter.app</string>
+	<string>com.wadats.app</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>TimestampConverter</string>
+	<string>Wadats</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -35,7 +35,7 @@
 			<key>NSMessage</key>
 			<string>convertTimestamp</string>
 			<key>NSPortName</key>
-			<string>TimestampConverter</string>
+			<string>Wadats</string>
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSStringPboardType</string>

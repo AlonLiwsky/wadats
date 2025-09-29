@@ -1,6 +1,6 @@
 # Testing Guide
 
-This document describes how to test Timestamp Converter to ensure all features work correctly.
+This document describes how to test Wadats (What's that timestamp?) to ensure all features work correctly.
 
 ## Pre-Testing Setup
 
@@ -99,11 +99,13 @@ This document describes how to test Timestamp Converter to ensure all features w
 4. Press `⌘⇧T`
 
 **Expected:**
-- ✅ Popup window appears
-- ✅ Window is centered on screen
+- ✅ Popup window appears at cursor position
+- ✅ Window is Maccy-style list (not centered on screen)
 - ✅ Window is floating (stays on top)
 - ✅ Conversion results are displayed
-- ✅ Window has title bar with close button
+- ✅ Arrow keys work for navigation
+- ✅ ESC closes window
+- ✅ Click outside closes window
 
 ---
 
@@ -138,27 +140,38 @@ This document describes how to test Timestamp Converter to ensure all features w
 
 #### Test 2.3: Popup Window Actions
 
-**Copy to Clipboard:**
+**Navigate with Arrow Keys:**
 1. Open popup with any timestamp
-2. Hover over a result row
-3. Click the copy icon (📄)
-4. Verify checkmark appears
+2. Press ↓ arrow key
+3. Verify selection moves down
+4. Press ↑ arrow key
+5. Verify selection moves up
+
+**Copy to Clipboard (Enter):**
+1. Open popup with any timestamp
+2. Use arrow keys to select a result
+3. Press **Enter**
+4. Verify popup closes
 5. Paste in another app (`⌘V`)
 6. Verify correct value is pasted
 
-**Insert into App:**
+**Insert into App (Cmd+Enter):**
 1. Open TextEdit with cursor in document
 2. Select timestamp in another location
 3. Press `⌘⇧T`
-4. Click insert icon (⬇️) on any result
-5. Verify:
+4. Use arrow keys to select a result
+5. Press **Cmd+Enter**
+6. Verify:
    - Popup closes
    - Value is inserted at cursor position
 
 **Close Window:**
 1. Open popup
-2. Click X button or press Escape
+2. Press **ESC**
 3. Verify window closes
+4. Open popup again
+5. Click outside the popup window
+6. Verify window closes
 
 ---
 
@@ -169,12 +182,13 @@ This document describes how to test Timestamp Converter to ensure all features w
 
 **Expected:**
 - ✅ Window shows app icon
-- ✅ "Timestamp Converter" title
+- ✅ "Wadats" title with "What's that timestamp?" tagline
 - ✅ Version number
 - ✅ Global shortcut info (⌘⇧T)
+- ✅ Keyboard shortcuts reference (Enter=copy, Cmd+Enter=insert)
 - ✅ Context menu instructions
 - ✅ How to use guide
-- ✅ "Quit TimestampConverter" button works
+- ✅ "Quit Wadats" button works
 
 ---
 
@@ -350,12 +364,10 @@ Test the app works in various applications:
 
 ```bash
 # Build should complete without errors
-./build.sh
+./build-direct.sh
 
-# Check for warnings
-xcodebuild -project TimestampConverter.xcodeproj \
-    -scheme TimestampConverter \
-    clean build 2>&1 | grep warning
+# Or install the app
+./install.sh
 ```
 
 ---

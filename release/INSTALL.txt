@@ -1,8 +1,9 @@
-TIMESTAMP CONVERTER - INSTALLATION
-===================================
+WADATS - INSTALLATION
+=====================
+What's that timestamp?
 
 EASY INSTALLATION (drag & drop):
-  1. Drag TimestampConverter.app to your Applications folder
+  1. Drag Wadats.app to your Applications folder
   2. Launch it from Applications or Spotlight
   3. Look for the clock icon in your menu bar
   4. Grant accessibility permissions when prompted
@@ -10,10 +11,13 @@ EASY INSTALLATION (drag & drop):
 FIRST USE:
   1. Select any timestamp (e.g., 1737025200)
   2. Press ⌘⇧T (Command + Shift + T)
-  3. Choose format to copy or insert
+  3. A Maccy-style popup appears at your cursor
+  4. Use arrow keys (↑↓) to navigate
+  5. Press Enter to copy, Cmd+Enter to insert
+  6. Press ESC or click outside to close
 
 DOCUMENTATION:
   See README.md for complete documentation
 
 SUPPORT:
-  https://github.com/yourusername/TimestampConverter
+  https://github.com/yourusername/wadats

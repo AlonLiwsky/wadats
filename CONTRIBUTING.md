@@ -1,11 +1,11 @@
-# Contributing to Timestamp Converter
+# Contributing to Wadats
 
-Thank you for your interest in contributing to Timestamp Converter! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to Wadats (What's that timestamp?)! This document provides guidelines and instructions for contributing.
 
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/yourusername/TimestampConverter.git`
+2. Clone your fork: `git clone https://github.com/yourusername/wadats.git`
 3. Create a feature branch: `git checkout -b feature/amazing-feature`
 4. Make your changes
 5. Test thoroughly
@@ -18,17 +18,20 @@ Thank you for your interest in contributing to Timestamp Converter! This documen
 ### Requirements
 
 - macOS 12.0 or later
-- Xcode 14.0 or later
-- Swift 5.0 or later
+- Swift 5.0 or later (comes with Command Line Tools)
+- Xcode (optional, only for IDE development)
 
 ### Building the Project
 
 ```bash
-# Open in Xcode
-open TimestampConverter.xcodeproj
+# Easy build (no Xcode IDE required)
+./build-direct.sh
 
-# Or use the build script
-./build.sh
+# Install to Applications
+./install.sh
+
+# Or open in Xcode (if you have it)
+open TimestampConverter.xcodeproj
 ```
 
 ## Code Style
@@ -194,4 +197,4 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 ---
 
-Thank you for contributing to Timestamp Converter! 🎉
+Thank you for contributing to Wadats! 🎉

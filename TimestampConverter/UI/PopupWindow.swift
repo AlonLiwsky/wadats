@@ -5,12 +5,31 @@
 
 import SwiftUI
 import AppKit
+import Combine
+
+/// Custom NSPanel that can become key to receive keyboard events
+class KeyablePanel: NSPanel {
+    override var canBecomeKey: Bool {
+        return true
+    }
+
+    override var canBecomeMain: Bool {
+        return false
+    }
+}
+
+/// Observable state for popup window
+class PopupState: ObservableObject {
+    @Published var selectedIndex: Int = 0
+}
 
 /// Popup window that displays conversion results (Maccy/Clipy style)
 class PopupWindowController: NSWindowController, NSWindowDelegate {
 
-    var selectedIndex: Int = 0
+    private var state = PopupState()
     var results: [ConversionResult] = []
+    private var localEventMonitor: Any?
+    private var globalEventMonitor: Any?
 
     convenience init(results: [ConversionResult]) {
         // Get cursor position
@@ -20,7 +39,7 @@ class PopupWindowController: NSWindowController, NSWindowDelegate {
         let windowWidth: CGFloat = 450
         let windowHeight: CGFloat = min(CGFloat(results.count * 50 + 10), 400)
 
-        let window = NSWindow(
+        let window = KeyablePanel(
             contentRect: NSRect(
                 x: mouseLocation.x,
                 y: mouseLocation.y - windowHeight,
@@ -36,6 +55,9 @@ class PopupWindowController: NSWindowController, NSWindowDelegate {
         window.backgroundColor = .clear
         window.level = .popUpMenu
         window.hasShadow = true
+        window.isMovable = false
+        window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        window.acceptsMouseMovedEvents = true
 
         self.init(window: window)
 
@@ -44,9 +66,9 @@ class PopupWindowController: NSWindowController, NSWindowDelegate {
 
         let contentView = PopupContentView(
             results: results,
-            selectedIndex: .constant(selectedIndex),
+            state: state,
             closeWindow: { [weak self] in
-                self?.window?.close()
+                self?.closeWindow()
             },
             onAction: { [weak self] action, result in
                 self?.handleAction(action, for: result)
@@ -55,61 +77,96 @@ class PopupWindowController: NSWindowController, NSWindowDelegate {
 
         window.contentView = NSHostingView(rootView: contentView)
 
-        // Make window key and activate app
+        // Make window key
         window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+
+        // Setup keyboard and click monitoring
+        setupEventMonitoring()
     }
 
-    override func keyDown(with event: NSEvent) {
-        switch Int(event.keyCode) {
-        case 125: // Down arrow
-            if selectedIndex < results.count - 1 {
-                selectedIndex += 1
-                updateSelection()
-            }
-        case 126: // Up arrow
-            if selectedIndex > 0 {
-                selectedIndex -= 1
-                updateSelection()
-            }
-        case 36: // Return
-            if !results.isEmpty {
-                handleAction(.insert, for: results[selectedIndex])
-            }
-        case 53: // Escape
-            window?.close()
-        case 8 where event.modifierFlags.contains(.command): // Cmd+C
-            if !results.isEmpty {
-                handleAction(.copy, for: results[selectedIndex])
-            }
-        default:
-            super.keyDown(with: event)
-        }
-    }
+    private func setupEventMonitoring() {
+        // Local monitor for keyboard events
+        localEventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] event in
+            guard let self = self else { return event }
 
-    private func updateSelection() {
-        if let hostingView = window?.contentView as? NSHostingView<PopupContentView> {
-            let contentView = PopupContentView(
-                results: results,
-                selectedIndex: .constant(selectedIndex),
-                closeWindow: { [weak self] in
-                    self?.window?.close()
-                },
-                onAction: { [weak self] action, result in
-                    self?.handleAction(action, for: result)
+            // Handle keyboard events
+            if event.type == .keyDown {
+                let keyCode = event.keyCode
+                let modifierFlags = event.modifierFlags
+
+                switch keyCode {
+                case 125: // Down arrow
+                    if self.state.selectedIndex < self.results.count - 1 {
+                        self.state.selectedIndex += 1
+                    }
+                    return nil
+                case 126: // Up arrow
+                    if self.state.selectedIndex > 0 {
+                        self.state.selectedIndex -= 1
+                    }
+                    return nil
+                case 36: // Return
+                    if !self.results.isEmpty {
+                        if modifierFlags.contains(.command) {
+                            // Cmd+Enter = insert
+                            self.handleAction(.insert, for: self.results[self.state.selectedIndex])
+                        } else {
+                            // Enter = copy
+                            self.handleAction(.copy, for: self.results[self.state.selectedIndex])
+                        }
+                    }
+                    return nil
+                case 53: // Escape
+                    self.closeWindow()
+                    return nil
+                case 8 where modifierFlags.contains(.command): // Cmd+C
+                    if !self.results.isEmpty {
+                        self.handleAction(.copy, for: self.results[self.state.selectedIndex])
+                    }
+                    return nil
+                default:
+                    break
                 }
-            )
-            hostingView.rootView = contentView
+            }
+
+            return event
         }
+
+        // Global monitor for clicks outside
+        globalEventMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
+            guard let self = self, let window = self.window else { return }
+
+            // Get click location in screen coordinates
+            let clickLocation = NSEvent.mouseLocation
+
+            // Check if click is outside our window
+            if !window.frame.contains(clickLocation) {
+                self.closeWindow()
+            }
+        }
+    }
+
+    private func closeWindow() {
+        if let monitor = localEventMonitor {
+            NSEvent.removeMonitor(monitor)
+            self.localEventMonitor = nil
+        }
+        if let monitor = globalEventMonitor {
+            NSEvent.removeMonitor(monitor)
+            self.globalEventMonitor = nil
+        }
+        window?.close()
     }
 
     private func handleAction(_ action: ResultAction, for result: ConversionResult) {
         switch action {
         case .copy:
             copyToClipboard(result.value)
-            window?.close()
+            closeWindow()
         case .insert:
             insertText(result.value)
-            window?.close()
+            closeWindow()
         }
     }
 
@@ -134,12 +191,32 @@ class PopupWindowController: NSWindowController, NSWindowDelegate {
             keyUpEvent?.post(tap: .cghidEventTap)
         }
     }
+
+    func windowWillClose(_ notification: Notification) {
+        if let monitor = localEventMonitor {
+            NSEvent.removeMonitor(monitor)
+            self.localEventMonitor = nil
+        }
+        if let monitor = globalEventMonitor {
+            NSEvent.removeMonitor(monitor)
+            self.globalEventMonitor = nil
+        }
+    }
+
+    deinit {
+        if let monitor = localEventMonitor {
+            NSEvent.removeMonitor(monitor)
+        }
+        if let monitor = globalEventMonitor {
+            NSEvent.removeMonitor(monitor)
+        }
+    }
 }
 
 /// SwiftUI view for the popup content - Maccy/Clipy style list
 struct PopupContentView: View {
     let results: [ConversionResult]
-    @Binding var selectedIndex: Int
+    @ObservedObject var state: PopupState
     let closeWindow: () -> Void
     let onAction: (ResultAction, ConversionResult) -> Void
 
@@ -157,9 +234,9 @@ struct PopupContentView: View {
                         ForEach(Array(results.enumerated()), id: \.element.id) { index, result in
                             ListItemView(
                                 result: result,
-                                isSelected: index == selectedIndex,
+                                isSelected: index == state.selectedIndex,
                                 onSelect: {
-                                    selectedIndex = index
+                                    state.selectedIndex = index
                                 },
                                 onAction: { action in
                                     onAction(action, result)
@@ -212,11 +289,11 @@ struct ListItemView: View {
             // Show action hints on hover or selection
             if isHovered || isSelected {
                 HStack(spacing: 8) {
-                    ActionButton(icon: "doc.on.doc", hint: "⌘C", action: {
+                    ActionButton(icon: "doc.on.doc", hint: "↵", action: {
                         onAction(.copy)
                     })
 
-                    ActionButton(icon: "arrow.down.doc", hint: "↵", action: {
+                    ActionButton(icon: "arrow.down.doc", hint: "⌘↵", action: {
                         onAction(.insert)
                     })
                 }
@@ -237,7 +314,8 @@ struct ListItemView: View {
             }
         }
         .onTapGesture {
-            onAction(.insert)
+            // Single click = copy (default action)
+            onAction(.copy)
         }
     }
 }

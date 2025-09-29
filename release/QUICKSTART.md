@@ -1,43 +1,34 @@
 # Quick Start Guide
 
-Get Timestamp Converter up and running in 5 minutes!
+Get Wadats (What's that timestamp?) up and running in 5 minutes!
 
-## Step 1: Build the App
+## Step 1: Install the App
 
-If you don't have Xcode installed, download it from the [Mac App Store](https://apps.apple.com/app/xcode/id497799835).
+### Easy Install (No Xcode Required!) ⭐ Recommended
 
-### Option A: Build with Xcode (Easiest)
+```bash
+./install.sh
+```
 
-1. Open the project:
-   ```bash
-   open TimestampConverter.xcodeproj
-   ```
+That's it! The script will:
+- Build the app using Swift compiler (already on your Mac)
+- Install it to /Applications
+- Launch it automatically
 
-2. In Xcode:
-   - Press `⌘R` to build and run
-   - The app will launch automatically
+### Alternative: Manual Build
 
-### Option B: Build with Script
+If you prefer to build manually:
 
-1. Make sure Xcode is properly configured:
-   ```bash
-   sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-   ```
+```bash
+# Build the app
+./build-direct.sh
 
-2. Run the build script:
-   ```bash
-   ./build.sh
-   ```
+# Install to Applications
+cp -R DirectBuild/Wadats.app /Applications/
 
-3. Install to Applications:
-   ```bash
-   cp -R ./build/Build/Products/Release/TimestampConverter.app /Applications/
-   ```
-
-4. Launch the app:
-   ```bash
-   open /Applications/TimestampConverter.app
-   ```
+# Launch
+open /Applications/Wadats.app
+```
 
 ## Step 2: Grant Permissions
 
@@ -58,11 +49,14 @@ When you first launch the app, you'll be prompted to grant accessibility permiss
 1. Open any text editor or browser
 2. Select this timestamp: `1737025200`
 3. Press `⌘⇧T` (Command + Shift + T)
-4. A popup appears showing:
+4. A Maccy-style popup appears at your cursor showing:
    - ISO 8601 date
    - Human readable format
    - Relative time
    - And more!
+5. Use arrow keys (↑↓) to navigate or hover with mouse
+6. Press **Enter** to copy, **Cmd+Enter** to insert
+7. Press **ESC** to close or click outside
 
 ### Test Conversions
 
@@ -80,7 +74,9 @@ Try converting these examples:
 ### Method 1: Keyboard Shortcut (Fastest)
 - Select any timestamp
 - Press `⌘⇧T`
-- Click to copy or insert
+- Use arrow keys (↑↓) to navigate
+- Press **Enter** to copy, **Cmd+Enter** to insert
+- Press **ESC** to close or click outside
 
 ### Method 2: Menu Bar
 - Click the 🕐 icon in your menu bar
@@ -92,10 +88,14 @@ Try converting these examples:
 
 ## Tips & Tricks
 
-### Copy vs Insert
+### Keyboard Shortcuts
 
-- **Copy icon** 📄: Copies to clipboard
-- **Insert icon** ⬇️: Pastes directly into your app
+- **⌘⇧T** - Open converter on selected text
+- **↑↓** - Navigate through options
+- **Enter** - Copy selected value to clipboard
+- **Cmd+Enter** - Insert selected value into active app
+- **Escape** - Close popup
+- **Click outside** - Close popup
 
 ### Supported Formats
 
@@ -108,7 +108,7 @@ The app automatically detects:
 
 Look for the clock icon in your menu bar (top-right). If you don't see it:
 - The app might not be running
-- Check Activity Monitor for "TimestampConverter"
+- Check Activity Monitor for "Wadats"
 - Try relaunching the app
 
 ## Troubleshooting
@@ -133,8 +133,8 @@ Look for the clock icon in your menu bar (top-right). If you don't see it:
 
 ## Need Help?
 
-- [Report a bug](https://github.com/yourusername/TimestampConverter/issues)
-- [Read the FAQ](https://github.com/yourusername/TimestampConverter/wiki)
+- [Report a bug](https://github.com/yourusername/wadats/issues)
+- [Read the FAQ](https://github.com/yourusername/wadats/wiki)
 - Check the full README for detailed documentation
 
 ---
