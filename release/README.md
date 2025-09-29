@@ -34,24 +34,7 @@ A lightweight, always-accessible macOS menu bar app for converting timestamps be
 
 ## Installation
 
-### Option 1: Easy Install (No Xcode Required!) ⭐ **Recommended**
-
-```bash
-# Clone and install
-git clone https://github.com/yourusername/TimestampConverter.git
-cd TimestampConverter
-./install.sh
-```
-
-That's it! The app will build and install automatically. Only requires Swift compiler (comes with Command Line Tools).
-
-### Option 2: Pre-built Release
-
-1. Download the latest release from the [Releases](https://github.com/yourusername/TimestampConverter/releases) page
-2. Unzip and drag `TimestampConverter.app` to your Applications folder
-3. Launch the app
-
-### Option 3: Build with Xcode (For Development)
+### Option 1: Build from Source (Recommended)
 
 1. **Clone the repository**
    ```bash
@@ -59,16 +42,27 @@ That's it! The app will build and install automatically. Only requires Swift com
    cd TimestampConverter
    ```
 
-2. **Build and Run**
+2. **Open in Xcode**
    ```bash
-   # Quick build
-   ./build-direct.sh
-   open DirectBuild/TimestampConverter.app
-
-   # Or use Xcode
    open TimestampConverter.xcodeproj
-   # Press ⌘R to build and run
    ```
+
+3. **Build and Run**
+   - Select the `TimestampConverter` scheme
+   - Press `⌘R` to build and run
+   - Or press `⌘B` to build, then find the app in `DerivedData`
+
+4. **Move to Applications** (Optional)
+   ```bash
+   # After building, copy to Applications folder
+   cp -R ~/Library/Developer/Xcode/DerivedData/TimestampConverter-*/Build/Products/Debug/TimestampConverter.app /Applications/
+   ```
+
+### Option 2: Pre-built Release
+
+1. Download the latest release from the [Releases](https://github.com/yourusername/TimestampConverter/releases) page
+2. Unzip and drag `TimestampConverter.app` to your Applications folder
+3. Launch the app
 
 ## First Run Setup
 

@@ -76,7 +76,7 @@ struct PopupContentView: View {
 
                     Text("Select a timestamp and press ⌘⇧T")
                         .font(.caption)
-                        .foregroundColor(.tertiary)
+                        .foregroundColor(Color.secondary.opacity(0.7))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
@@ -163,7 +163,7 @@ struct ResultRow: View {
 
                 Text(result.description)
                     .font(.caption)
-                    .foregroundColor(.tertiary)
+                    .foregroundColor(Color.secondary.opacity(0.7))
             }
 
             Spacer()

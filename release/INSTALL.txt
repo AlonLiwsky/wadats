@@ -1,0 +1,19 @@
+TIMESTAMP CONVERTER - INSTALLATION
+===================================
+
+EASY INSTALLATION (drag & drop):
+  1. Drag TimestampConverter.app to your Applications folder
+  2. Launch it from Applications or Spotlight
+  3. Look for the clock icon in your menu bar
+  4. Grant accessibility permissions when prompted
+
+FIRST USE:
+  1. Select any timestamp (e.g., 1737025200)
+  2. Press ⌘⇧T (Command + Shift + T)
+  3. Choose format to copy or insert
+
+DOCUMENTATION:
+  See README.md for complete documentation
+
+SUPPORT:
+  https://github.com/yourusername/TimestampConverter
