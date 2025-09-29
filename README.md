@@ -37,8 +37,6 @@ A lightweight, always-accessible macOS menu bar app for converting timestamps be
 
 ## Installation
 
-### Option 1: Easy Install (No Xcode Required!) ⭐ **Recommended**
-
 ```bash
 # Clone and install
 git clone https://github.com/AlonLiwsky/wadats.git
@@ -48,17 +46,11 @@ cd wadats
 
 That's it! The app will build and install automatically. Only requires Swift compiler (comes with Command Line Tools).
 
-### Option 2: Pre-built Release
-
-1. Download the latest release from the [Releases](https://github.com/AlonLiwsky/wadats/releases) page
-2. Unzip and drag `Wadats.app` to your Applications folder
-3. Launch the app
-
-### Option 3: Build with Xcode (For Development)
+### Option 2: Build with Xcode (For Development)
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/wadats.git
+   git clone https://github.com/AlonLiwsky/wadats.git
    cd wadats
    ```
 
@@ -184,7 +176,7 @@ wadats/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/wadats.git
+git clone https://github.com/AlonLiwsky/wadats.git
 cd wadats
 
 # Build without Xcode IDE
