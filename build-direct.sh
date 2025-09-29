@@ -5,12 +5,12 @@
 
 set -e
 
-echo "🔨 Building TimestampConverter without Xcode IDE..."
+echo "🔨 Building Wadats without Xcode IDE..."
 echo ""
 
 # Create build directory
 BUILD_DIR="./DirectBuild"
-APP_NAME="TimestampConverter.app"
+APP_NAME="Wadats.app"
 PRODUCT_DIR="$BUILD_DIR/$APP_NAME"
 
 rm -rf "$BUILD_DIR"
@@ -21,15 +21,15 @@ echo "📝 Compiling Swift files..."
 
 # Compile all Swift files
 swiftc \
-    -o "$PRODUCT_DIR/Contents/MacOS/TimestampConverter" \
-    -module-name TimestampConverter \
+    -o "$PRODUCT_DIR/Contents/MacOS/Wadats" \
+    -module-name Wadats \
     -target arm64-apple-macos12.0 \
     -swift-version 5 \
     -Xlinker -rpath -Xlinker @executable_path/../Frameworks \
     -framework Cocoa \
     -framework SwiftUI \
     -framework Carbon \
-    TimestampConverter/TimestampConverterApp.swift \
+    TimestampConverter/WadatsApp.swift \
     TimestampConverter/AppDelegate.swift \
     TimestampConverter/Core/TimestampConverter.swift \
     TimestampConverter/Core/GlobalHotKeyManager.swift \
@@ -53,13 +53,13 @@ cat > "$PRODUCT_DIR/Contents/Info.plist" << 'PLIST'
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>TimestampConverter</string>
+	<string>Wadats</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.timestampconverter.app</string>
+	<string>com.wadats.app</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>TimestampConverter</string>
+	<string>Wadats</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -83,7 +83,7 @@ cat > "$PRODUCT_DIR/Contents/Info.plist" << 'PLIST'
 			<key>NSMessage</key>
 			<string>convertTimestamp</string>
 			<key>NSPortName</key>
-			<string>TimestampConverter</string>
+			<string>Wadats</string>
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSStringPboardType</string>
@@ -101,7 +101,7 @@ cp -R TimestampConverter/Assets.xcassets "$PRODUCT_DIR/Contents/Resources/" 2>/d
 echo "APPL????" > "$PRODUCT_DIR/Contents/PkgInfo"
 
 # Make executable
-chmod +x "$PRODUCT_DIR/Contents/MacOS/TimestampConverter"
+chmod +x "$PRODUCT_DIR/Contents/MacOS/Wadats"
 
 echo ""
 echo "✅ Build successful!"

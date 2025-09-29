@@ -1,6 +1,6 @@
 //
 //  GlobalHotKeyManager.swift
-//  TimestampConverter
+//  Wadats (What's that timestamp?)
 //
 
 import Cocoa

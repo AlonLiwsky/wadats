@@ -1,6 +1,6 @@
 //
 //  SettingsView.swift
-//  TimestampConverter
+//  Wadats (What's that timestamp?)
 //
 
 import SwiftUI
@@ -14,12 +14,16 @@ struct SettingsView: View {
                 .font(.system(size: 48))
                 .foregroundColor(.accentColor)
 
-            Text("Timestamp Converter")
+            Text("Wadats")
                 .font(.title)
                 .fontWeight(.bold)
 
-            Text("Version 1.0")
+            Text("What's that timestamp?")
                 .font(.subheadline)
+                .foregroundColor(.secondary)
+
+            Text("Version 1.0")
+                .font(.caption)
                 .foregroundColor(.secondary)
 
             Divider()
@@ -73,7 +77,7 @@ struct SettingsView: View {
             Spacer()
 
             HStack(spacing: 20) {
-                Button("Quit TimestampConverter") {
+                Button("Quit Wadats") {
                     NSApplication.shared.terminate(nil)
                 }
                 .buttonStyle(.borderedProminent)
@@ -95,7 +99,7 @@ class SettingsWindowController: NSWindowController {
             defer: false
         )
 
-        window.title = "Timestamp Converter Settings"
+        window.title = "Wadats Settings"
         window.center()
 
         let contentView = SettingsView()

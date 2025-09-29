@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  TimestampConverter
+//  Wadats (What's that timestamp?)
 //
 
 import Cocoa
@@ -29,7 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         if let button = statusItem?.button {
-            button.image = NSImage(systemSymbolName: "clock.arrow.circlepath", accessibilityDescription: "Timestamp Converter")
+            button.image = NSImage(systemSymbolName: "clock.arrow.circlepath", accessibilityDescription: "Wadats")
             button.action = #selector(statusBarButtonClicked)
             button.target = self
         }
@@ -122,7 +122,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 let alert = NSAlert()
                 alert.messageText = "Accessibility Permission Required"
-                alert.informativeText = "TimestampConverter needs accessibility permissions to read selected text. Please grant access in System Settings → Privacy & Security → Accessibility."
+                alert.informativeText = "Wadats needs accessibility permissions to read selected text. Please grant access in System Settings → Privacy & Security → Accessibility."
                 alert.alertStyle = .warning
                 alert.addButton(withTitle: "Open System Settings")
                 alert.addButton(withTitle: "Later")

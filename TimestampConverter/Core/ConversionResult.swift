@@ -1,6 +1,6 @@
 //
 //  ConversionResult.swift
-//  TimestampConverter
+//  Wadats (What's that timestamp?)
 //
 
 import Foundation

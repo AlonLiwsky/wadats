@@ -1,6 +1,6 @@
 //
 //  TimestampConverter.swift
-//  TimestampConverter
+//  Wadats (What's that timestamp?)
 //
 
 import Foundation
@@ -113,19 +113,7 @@ class TimestampConverter {
 
         var results: [ConversionResult] = []
 
-        // To milliseconds
-        results.append(ConversionResult(
-            label: "Milliseconds",
-            value: String(format: "%.0f", seconds * 1000),
-            description: "Unix timestamp in milliseconds"
-        ))
-
-        // To microseconds
-        results.append(ConversionResult(
-            label: "Microseconds",
-            value: String(format: "%.0f", seconds * 1_000_000),
-            description: "Unix timestamp in microseconds"
-        ))
+        // Human-readable formats first (what users typically want from timestamps)
 
         // To ISO8601
         results.append(ConversionResult(
@@ -155,6 +143,22 @@ class TimestampConverter {
             description: "Time relative to now"
         ))
 
+        // Other timestamp formats below
+
+        // To milliseconds
+        results.append(ConversionResult(
+            label: "Milliseconds",
+            value: String(format: "%.0f", seconds * 1000),
+            description: "Unix timestamp in milliseconds"
+        ))
+
+        // To microseconds
+        results.append(ConversionResult(
+            label: "Microseconds",
+            value: String(format: "%.0f", seconds * 1_000_000),
+            description: "Unix timestamp in microseconds"
+        ))
+
         return results
     }
 
@@ -164,6 +168,38 @@ class TimestampConverter {
         let date = Date(timeIntervalSince1970: seconds)
 
         var results: [ConversionResult] = []
+
+        // Human-readable formats first
+
+        // To ISO8601
+        results.append(ConversionResult(
+            label: "ISO 8601",
+            value: iso8601Formatter.string(from: date),
+            description: "ISO 8601 format with timezone"
+        ))
+
+        // To human readable
+        results.append(ConversionResult(
+            label: "Human Readable",
+            value: humanReadableFormatter.string(from: date),
+            description: "Long date and time format"
+        ))
+
+        // To short format
+        results.append(ConversionResult(
+            label: "Short Format",
+            value: shortDateFormatter.string(from: date),
+            description: "Short date and time"
+        ))
+
+        // Relative time
+        results.append(ConversionResult(
+            label: "Relative",
+            value: relativeDateFormatter.localizedString(for: date, relativeTo: Date()),
+            description: "Time relative to now"
+        ))
+
+        // Other timestamp formats
 
         // To seconds
         results.append(ConversionResult(
@@ -179,6 +215,18 @@ class TimestampConverter {
             description: "Unix timestamp in microseconds"
         ))
 
+        return results
+    }
+
+    private func convertFromUnixMicroseconds(_ input: String) -> [ConversionResult] {
+        guard let microseconds = Double(input) else { return [] }
+        let seconds = microseconds / 1_000_000.0
+        let date = Date(timeIntervalSince1970: seconds)
+
+        var results: [ConversionResult] = []
+
+        // Human-readable formats first
+
         // To ISO8601
         results.append(ConversionResult(
             label: "ISO 8601",
@@ -193,13 +241,6 @@ class TimestampConverter {
             description: "Long date and time format"
         ))
 
-        // To short format
-        results.append(ConversionResult(
-            label: "Short Format",
-            value: shortDateFormatter.string(from: date),
-            description: "Short date and time"
-        ))
-
         // Relative time
         results.append(ConversionResult(
             label: "Relative",
@@ -207,15 +248,7 @@ class TimestampConverter {
             description: "Time relative to now"
         ))
 
-        return results
-    }
-
-    private func convertFromUnixMicroseconds(_ input: String) -> [ConversionResult] {
-        guard let microseconds = Double(input) else { return [] }
-        let seconds = microseconds / 1_000_000.0
-        let date = Date(timeIntervalSince1970: seconds)
-
-        var results: [ConversionResult] = []
+        // Other timestamp formats
 
         // To seconds
         results.append(ConversionResult(
@@ -229,27 +262,6 @@ class TimestampConverter {
             label: "Milliseconds",
             value: String(format: "%.3f", microseconds / 1000),
             description: "Unix timestamp in milliseconds"
-        ))
-
-        // To ISO8601
-        results.append(ConversionResult(
-            label: "ISO 8601",
-            value: iso8601Formatter.string(from: date),
-            description: "ISO 8601 format with timezone"
-        ))
-
-        // To human readable
-        results.append(ConversionResult(
-            label: "Human Readable",
-            value: humanReadableFormatter.string(from: date),
-            description: "Long date and time format"
-        ))
-
-        // Relative time
-        results.append(ConversionResult(
-            label: "Relative",
-            value: relativeDateFormatter.localizedString(for: date, relativeTo: Date()),
-            description: "Time relative to now"
         ))
 
         return results

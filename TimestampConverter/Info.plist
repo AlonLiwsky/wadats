@@ -35,7 +35,7 @@
 			<key>NSMessage</key>
 			<string>convertTimestamp</string>
 			<key>NSPortName</key>
-			<string>TimestampConverter</string>
+			<string>Wadats</string>
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSStringPboardType</string>

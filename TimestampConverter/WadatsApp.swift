@@ -1,12 +1,12 @@
 //
-//  TimestampConverterApp.swift
-//  TimestampConverter
+//  WadatsApp.swift
+//  Wadats
 //
 
 import SwiftUI
 
 @main
-struct TimestampConverterApp: App {
+struct WadatsApp: App {
 
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
